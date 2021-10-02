@@ -1,59 +1,85 @@
+canvas = document.getElementById('myCanvas');
+ctx = canvas.getContext("2d");
 
-var canvas = new fabric.Canvas('myCanvas');
- block_y=1;
- block_x=1;
+img_width = 300;
+img_height = 100;
 
-block_image_width = 350;
-block_image_height = 430;
+var img_image;
 
-var block_image_object= "";
+img_x = 100;
+img_y = 100;
 
-function new_image(get_image)
-{
-	fabric.Image.URL(get_image, function(Img) {
-block_image_object = Img;
-block_image_object = scaleToWidth(block_image_width);
-block_image_object = scaleToHeight(block_image_height);
-block_image_object.set({
-top: block_y,
-left: block_x
-});
-canvas.add(block_image_object);
-});
+function add() {
+	img_imgTag = new Image(); //defining a variable with a new image
+	img_imgTag.onload = uploadimg; // setting a function, onloading this variable
+	img_imgTag.src = img_image;   // load image
+}
+
+function uploadimg() {
+
+	ctx.drawImage(img_imgTag, img_x, img_y, img_width, img_height);
 }
 
 window.addEventListener("keydown", my_keydown);
 
 function my_keydown(e)
 {
-keyPressed = e.keyCode;
-console.log(keyPressed);
-
-	if(keyPressed == '?') // add appropriate keycode
-	{
-		// upload red ranger
-	}
-	if(keyPressed == '71')
-	{
-		block_x = 200;
-		// upload green ranger
-	}
+	keyPressed = e.keyCode;
+	console.log(keyPressed);
 	
-	if(keyPressed == '89')
-	{
-		block_x =350;
-		// upload yellow ranger
+		if((keyPressed >=97 && keyPressed<=122)|| (keyPressed >=65 && keyPressed<=90))
+		{
+			aplhabetkey();
+			document.getElementById("d1").innerHTML="You pressed Alphabet Key";
+			console.log("alphabet key");
+		}
+		else if(keyPressed >=48 && keyPressed<=57)
+		{
+			numberkey();
+			document.getElementById("d1").innerHTML="You pressed Number Key";
+			console.log("Number key");
+		}
+		else if(keyPressed >=37 && keyPressed<=40)
+		{
+			arrowkey();
+			document.getElementById("d1").innerHTML="You pressed Arrow Key";
+			console.log("Arrow Key");
+		}
+		else if((keyPressed ==17)|| (keyPressed ==18 || keyPressed ==27))
+		{
+			specialkey();
+			document.getElementById("d1").innerHTML="You pressed ctrl/esc/alt";
+			console.log("special key");
+		}
+	else{
+		otherkey();
+		document.getElementById("d1").innerHTML="You pressed symbol or other key";
 	}
-	if(keyPressed == '80')
-	{
-		block_x = 600;
-		// upload pink ranger
-	}
-	if(keyPressed == '66')
-	{
-		block_x = 700;
-	// upload blue ranger
-	}
-	
 }
 
+function aplhabetkey()
+{
+		img_image="Alpkey.png";
+	add();
+}
+function numberkey()
+{
+	img_image="numkey.png";
+	add();
+}
+function arrowkey()
+{
+	img_image="Arrkey.png";
+	add();
+}
+function specialkey()
+{
+	img_image="spkey.png";
+	add();
+}
+function otherkey()
+{
+	img_image="otherkey.png";
+	add();
+}
+	
